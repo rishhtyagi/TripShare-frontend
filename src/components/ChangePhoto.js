@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import EditServices from "../services/EditServices";
 
 class ChangePhoto extends Component {
   constructor(props) {
     super(props);
     this.state = {
       file: localStorage.getItem("photoPath"),
+      newphoto: "",
     };
     localStorage.removeItem("photoPath");
 
@@ -14,17 +16,23 @@ class ChangePhoto extends Component {
   }
 
   handleChange(event) {
-    console.log(event.target.files[0]);
     this.setState({
       file: URL.createObjectURL(event.target.files[0]),
+      newphoto: event.target.files[0],
     });
-    console.log(this.state.file);
+    console.log(this.state.newphoto);
   }
 
-  changePhoto() {}
+  changePhoto() {
+    EditServices.savePhoto(this.state.file).then((res) => {
+      console.log(res.data);
+    });
+  }
+
   backtoDashboardService() {
     return this.props.history.push("/dashboard");
   }
+
   render() {
     return (
       <div>
@@ -35,7 +43,13 @@ class ChangePhoto extends Component {
           <br />
           <h3 className="text-center text-dark"> Change Your Profile Photo</h3>
           <div className="card-body text-center">
-            <input type="file" onChange={this.handleChange} />
+            <input
+              type="file"
+              name="image"
+              accept=".jpg"
+              id="file"
+              onChange={this.handleChange}
+            />
             <br />
             <br />
             <img src={this.state.file} className="rounded-circle" width="150" />

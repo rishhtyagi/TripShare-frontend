@@ -10,6 +10,15 @@ class EditServices {
       },
     });
   }
+
+  savePhoto(newphoto) {
+    return axios.post("http://localhost:8085/user/savephoto", newphoto, {
+      headers: {
+        Authorization: localStorage.jwtToken,
+        "Content-Type": "application/json",
+      },
+    });
+  }
 }
 
 export default new EditServices();

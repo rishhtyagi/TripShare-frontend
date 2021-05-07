@@ -2,10 +2,28 @@ import React from "react";
 import { slideDown, slideUp } from "./Anime";
 import "../assets/css/Style.css";
 import { Container, Col, Row } from "react-bootstrap";
+import "../services/ChatServices";
 
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import ChatServices from "../services/ChatServices";
 class UserTableRow extends React.Component {
-  state = { expanded: false };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+      open: false,
+      messageobj: {
+        toUserId: "",
+        message: "",
+      },
+    };
+  }
   toggleExpander = (e) => {
     if (e.target.type === "checkbox") return;
 
@@ -23,9 +41,44 @@ class UserTableRow extends React.Component {
       });
     }
   };
+  handleChange = (value) => {
+    this.setState(() => ({
+      messageobj: {
+        toUserId: this.props.trip.user.id,
+        message: value,
+      },
+    }));
+  };
 
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  sendMsg = (e) => {
+    e.preventDefault();
+    if (this.state.messageobj.message == "") {
+      return;
+    }
+    let newmessage = {
+      toUserId: this.state.messageobj.toUserId,
+      message: this.state.messageobj.message,
+    };
+    console.log(this.state.messageobj);
+    console.log(newmessage);
+    ChatServices.sendMessage(newmessage).then((res) => {
+      console.log(res.data);
+      return this.props.history.push("/");
+    });
+    this.handleClose();
+  };
   render() {
     const { trip } = this.props;
+    const { open } = this.state;
+
     return [
       <tr key="main" onClick={this.toggleExpander}>
         {/* <td className="uk-text-nowrap text-white">{this.props.index}.</td> */}
@@ -91,6 +144,64 @@ class UserTableRow extends React.Component {
                       Host Age: <i>{trip.user.age}</i> <br />
                       Host gender:<i> {trip.user.gender}</i>
                     </p>
+                    <div>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={this.handleClickOpen}
+                      >
+                        Have a conversation{" "}
+                      </Button>
+                      <Dialog
+                        open={open}
+                        onClose={this.handleClose}
+                        aria-labelledby="form-dialog-title"
+                      >
+                        <DialogTitle id="form-dialog-title">
+                          Message box
+                        </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText>
+                            Write a message to <i>{trip.user.firstName}</i>.
+                          </DialogContentText>
+                          <TextField
+                            autoFocus
+                            margin="dense"
+                            id="outlined-multiline-static"
+                            placeholder="Hey There!"
+                            label="Message"
+                            multiline
+                            rows={4}
+                            variant="outlined"
+                            fullWidth
+                            onChange={(event) =>
+                              this.handleChange(event.target.value)
+                            }
+                            name="message"
+                          />
+
+                          {/* <Form.Group controlId="formGridDescription">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                      type="textarea"
+                      rows="9"
+                      placeholder="Your expectations here..."
+                      name="description"
+                      value={description}
+                      onChange={this.userChange}
+                    />
+                  </Form.Group> */}
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={this.handleClose} color="primary">
+                            Cancel
+                          </Button>
+                          <Button onClick={this.sendMsg} color="primary">
+                            Send
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                    </div>
                   </Col>
                 </Row>
               </Container>

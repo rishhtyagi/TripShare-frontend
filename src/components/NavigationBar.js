@@ -19,6 +19,11 @@ class NavigationBar extends Component {
     const guestLinks = (
       <>
         <div className="mr-auto"></div>
+        <Nav className="mr-auto">
+          <Link to={"aboutUs"} className="nav-link">
+            About Us
+          </Link>
+        </Nav>
         <Nav className="navbar-right">
           <Link to={"register"} className="nav-link">
             <FontAwesomeIcon icon={faUserPlus} /> Register
@@ -32,18 +37,18 @@ class NavigationBar extends Component {
     const userLinks = (
       <>
         <Nav className="mr-auto">
-          <Link to={"createTrip"} className="nav-link">
-            Create Trip
-          </Link>
-          <Link to={"list"} className="nav-link">
-            Trip List
-          </Link>
           <Link to={"dashboard"} className="nav-link">
             My Profile
           </Link>
+          <Link to={"createtrip"} className="nav-link">
+            Create Trip
+          </Link>
+          <Link to={"myTrips"} className="nav-link">
+            Trip List
+          </Link>
         </Nav>
         <Nav className="navbar-right">
-          <Link to={"logout"} className="nav-link" onClick={this.logout}>
+          <Link to={"login"} className="nav-link" onClick={this.logout}>
             <FontAwesomeIcon icon={faSignOutAlt} /> Logout
           </Link>
         </Nav>

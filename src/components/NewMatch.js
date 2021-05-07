@@ -12,46 +12,6 @@ class NewMatch extends Component {
     this.state = {
       tripId: localStorage.getItem("tripId"),
       trips: null,
-      // trips: [
-      //   {
-      //     trip: {
-      //       description:
-      //         "Travelling with preeti and other friends. Going for Kheerganga trek, and a bike trip near kasol",
-      //       groupSize: "5",
-      //       tripBudget: "10000",
-      //       tripLength: "6",
-      //       tripDate: "2021/05/21",
-      //       destination: "Kasol",
-      //       landscape: "Hilly/Mountain",
-      //       tripId: 1,
-      //       user: {
-      //         firstName: "Kabir",
-      //         lastName: "Singh",
-      //         age: "28",
-      //         gender: "male",
-      //       },
-      //     },
-      //   },
-      //   {
-      //     trip: {
-      //       description:
-      //         "Parasailing, Scuba diving & wind surfing. Staying in hostels",
-      //       groupSize: "3",
-      //       tripBudget: "8000",
-      //       tripLength: "4",
-      //       tripDate: "2021/05/21",
-      //       destination: "Goa",
-      //       landscape: "Beach",
-      //       tripId: 2,
-      //       user: {
-      //         firstName: "Subba",
-      //         lastName: "Reddy",
-      //         age: "23",
-      //         gender: "male",
-      //       },
-      //     },
-      //   },
-      // ],
     };
   }
 
@@ -93,7 +53,9 @@ class NewMatch extends Component {
                   {isLoading ? (
                     <tr>
                       <td colSpan={6} className="uk-text-center text-white">
-                        <em className="uk-text-muted text-white">Loading...</em>
+                        <em className="uk-text-muted text-white">
+                          No Matches Available
+                        </em>
                       </td>
                     </tr>
                   ) : (

@@ -20,7 +20,6 @@ class CreateTrip extends Component {
     };
     this.userChange = this.userChange.bind(this);
     this.submitTrip = this.submitTrip.bind(this);
-    this.test = this.test.bind(this);
     localStorage.removeItem("newtripId");
   }
   userChange = (event) => {
@@ -48,13 +47,9 @@ class CreateTrip extends Component {
       console.log(res.data.tripId);
       var newtripId = res.data.tripId;
       localStorage.setItem("tripId", newtripId);
-      this.props.history.push("/newMatch/");
+      this.props.history.push("/newMatch");
     });
   };
-
-  test() {
-    this.props.history.push("/newmatch");
-  }
 
   render() {
     const {

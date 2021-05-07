@@ -45,7 +45,6 @@ class Login extends Component {
       } else {
         this.resetLoginForm();
         localStorage.removeItem("jwtToken");
-        console.log("hoooo");
         this.setState({ error: "Invalid email and password" });
       }
     }, 500);

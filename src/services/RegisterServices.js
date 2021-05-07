@@ -8,11 +8,15 @@ class RegisterServices {
 
   deleteUser() {
     console.log(localStorage.getItem("jwtToken"));
-    return axios.post("http://localhost:8085/user/delete", {
-      headers: {
-        Authorization: localStorage.jwtToken,
-      },
-    });
+    return axios.post(
+      "http://localhost:8085/user/delete",
+      {},
+      {
+        headers: {
+          Authorization: localStorage.jwtToken,
+        },
+      }
+    );
   }
 }
 
