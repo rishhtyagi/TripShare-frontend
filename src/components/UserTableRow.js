@@ -63,18 +63,18 @@ class UserTableRow extends React.Component {
     if (this.state.messageobj.message == "") {
       return;
     }
-    let newmessage = {
+    let messageobj = {
       toUserId: this.state.messageobj.toUserId,
       message: this.state.messageobj.message,
     };
     console.log(this.state.messageobj);
-    console.log(newmessage);
-    ChatServices.sendMessage(newmessage).then((res) => {
-      console.log(res.data);
-      return this.props.history.push("/");
+    console.log(messageobj);
+    ChatServices.sendMessage(messageobj).then((res) => {
+      console.log(res);
+      this.handleClose();
     });
-    this.handleClose();
   };
+
   render() {
     const { trip } = this.props;
     const { open } = this.state;

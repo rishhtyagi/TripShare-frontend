@@ -8,7 +8,7 @@ class ChatUI extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currUserId: "4",
+      currUserId: this.props.match.params.id,
       otherUserid: "",
       otherUserName: "",
       messageobj: {
@@ -39,7 +39,7 @@ class ChatUI extends Component {
           // photoPath: "",
         },
         {
-          id: "3",
+          id: "4",
           firstName: "Dwight",
           lastName: "Shrute",
           email: "j@d.com",
@@ -50,26 +50,21 @@ class ChatUI extends Component {
           // photoPath: "",
         },
       ],
-      chatMessages: [
-        {
-          fromUser: "3",
-          toUser: "4",
-          message: "hi",
-          msgTimestamp: "1",
-        },
-        {
-          fromUser: "4",
-          toUser: "3",
-          message: "yo",
-          msgTimestamp: "2",
-        },
-        {
-          fromUser: "5",
-          toUser: "3",
-          message: "hey",
-          msgTimestamp: "3",
-        },
-      ],
+      chatMessages: [],
+      // chatMessages: [
+      //   {
+      //     fromUser: "4",
+      //     toUser: "3",
+      //     message: "Hey!",
+      //     msgTimestamp: "1",
+      //   },
+      //   {
+      //     fromUser: "3",
+      //     toUser: "4",
+      //     message: "Hi!",
+      //     msgTimestamp: "2",
+      //   },
+      // ],
     };
     this.showUserChat = this.showUserChat.bind(this);
   }
@@ -79,6 +74,7 @@ class ChatUI extends Component {
       console.log(res.data);
       this.setState({
         chatUsers: res.data,
+        isDemoChat: false,
       });
     });
   }
@@ -88,7 +84,9 @@ class ChatUI extends Component {
     var id = chatUser.id;
     this.setState({ otherUserName: name }, () => {
       console.log(this.state.otherUserName);
+      // show name on chat panel
       document.getElementById("otherUserName").innerHTML = name;
+      // set msgtosend object user id
       this.setState(
         {
           messageobj: {
@@ -100,11 +98,20 @@ class ChatUI extends Component {
         }
       );
       // send get
-      ChatServices.getChats(chatUser.id).then((res) => {
-        this.setState({
-          chatMessages: res.data,
+      ChatServices.getChats(chatUser.id)
+        .then((res) => {
+          this.setState(
+            {
+              chatMessages: res.data,
+            },
+            console.log(res.data[0].fromUser.id)
+          );
+        })
+        .then(() => {
+          console.log(this.state.chatMessages);
+          console.log(this.state.chatMessages[0].fromUser.id);
         });
-      });
+      console.log("curr user -> " + this.state.currUserId);
     });
     // this.setState({
     //   chatMessages: [
@@ -147,17 +154,16 @@ class ChatUI extends Component {
     if (this.state.messageobj.message == "") {
       return;
     }
-    let newmessage = {
+    let messageobj = {
       toUserId: this.state.messageobj.toUserId,
       message: this.state.messageobj.message,
     };
     console.log(this.state.messageobj);
-    console.log(newmessage);
-    ChatServices.sendMessage(newmessage).then((res) => {
-      console.log(res.data);
-      return this.props.history.push("/");
+    console.log(messageobj);
+    ChatServices.sendMessage(messageobj).then((res) => {
+      console.log(res);
+      this.handleClose();
     });
-    this.handleClose();
   };
 
   render() {
@@ -214,19 +220,23 @@ class ChatUI extends Component {
                           <i
                             className="material-icons text-info mr-2"
                             id="otherUserName"
-                          ></i>
+                          >
+                            Please select a user to see messages.
+                          </i>
                         </h5>
                       </div>
                     </div>
-                    {chatMessages.map((message) => (
-                      <div key={message.msgTimestamp}>
-                        {this.state.currUserId === message.fromUser ? (
+                    {chatMessages.map((chatMessage) => (
+                      <div key={chatMessage.msgTimestamp}>
+                        {console.log("fromUserId" + chatMessage.fromUser.id)}
+                        {console.log("currUser" + this.state.currUserId)}
+                        {this.state.currUserId == chatMessage.fromUser.id ? (
                           <div className="row">
                             {" "}
                             <div className="col-6"> </div>
                             <div className="col-6 text-right">
                               <Card bg="info" text="light">
-                                <Card.Body>{message.message}</Card.Body>
+                                <Card.Body>{chatMessage.message}</Card.Body>
                               </Card>
                               <h6 className="mb-0 col-sm text-secondary">
                                 You{" "}
@@ -238,7 +248,7 @@ class ChatUI extends Component {
                             {" "}
                             <div className="col-6 text-left">
                               <Card bg="primary" text="light">
-                                <Card.Body>{message.message}</Card.Body>
+                                <Card.Body>{chatMessage.message}</Card.Body>
                               </Card>
                               <h6 className="mb-0 col-sm text-secondary">
                                 User{" "}

@@ -31,6 +31,10 @@ class Login extends Component {
     error: "",
   };
 
+  componentDidMount() {
+    delete localStorage.jwtToken;
+  }
+
   credentialChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -47,7 +51,7 @@ class Login extends Component {
         localStorage.removeItem("jwtToken");
         this.setState({ error: "Invalid email and password" });
       }
-    }, 500);
+    }, 5000);
   };
 
   resetLoginForm = () => {

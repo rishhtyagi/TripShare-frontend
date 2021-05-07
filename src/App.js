@@ -38,7 +38,7 @@ export default function App() {
               <Route path="/newMatch" exact component={NewMatch} />
               <Route path="/deleteProfile" exact component={DeleteProfile} />
               <Route path="/changePhoto" exact component={ChangePhoto} />
-              <Route path="/chatui" exact component={ChatUI} />
+              <Route path="/chatUi/:id" exact component={ChatUI} />
               <Route path="/myTrips" exact component={MyTrips} />
               <Route path="/aboutUs" exact component={AboutUs} />
             </Switch>

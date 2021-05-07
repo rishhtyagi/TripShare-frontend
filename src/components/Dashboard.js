@@ -7,6 +7,7 @@ class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      id: "",
       firstName: "",
       lastName: "",
       email: "",
@@ -17,19 +18,20 @@ class Dashboard extends Component {
       trip: null,
       test: "",
       firstChatUser: null,
-      nchatUsers: "",
     };
     this.editProfile = this.editProfile.bind(this);
     this.createTrip = this.createTrip.bind(this);
     this.deleteProfile = this.deleteProfile.bind(this);
     this.changePhoto = this.changePhoto.bind(this);
     this.myTrips = this.myTrips.bind(this);
+    this.myChats = this.myChats.bind(this);
     localStorage.removeItem("newtripId");
   }
 
   componentDidMount() {
     this.findUserByUser();
     this.findTripsByUser();
+    this.getChatUsers();
   }
 
   editProfile() {
@@ -48,6 +50,7 @@ class Dashboard extends Component {
       .then((user) => {
         console.log(user);
         this.setState({
+          id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
@@ -97,12 +100,10 @@ class Dashboard extends Component {
     })
       .then((response) => response.json())
       .then((chatUsers) => {
-        console.log(chatUsers[0]);
+        console.log(chatUsers);
         this.setState({
           firstChatUser: chatUsers[0],
-          nchatusers: chatUsers.length,
         });
-        console.log(this.state.nchatUsers);
       });
   };
 
@@ -112,6 +113,9 @@ class Dashboard extends Component {
 
   deleteProfile() {
     return this.props.history.push("/deleteProfile");
+  }
+  myChats() {
+    return this.props.history.push("/chatUi/" + this.state.id);
   }
   myTrips() {
     return this.props.history.push("/myTrips");
@@ -164,16 +168,16 @@ class Dashboard extends Component {
           </div>
           <small>To see all the information click on button below...</small>
           <br />
-          <Button className="text-center" onClick={this.myTrips}>
+          <Button size="sm" className="text-center" onClick={this.myTrips}>
             {" "}
-            view all
+            View all
           </Button>
         </div>
       );
     }
 
     let chatUserDisplay;
-    if (!nchatUsers) {
+    if (!firstChatUser) {
       chatUserDisplay = (
         <div className="text-white text-center bg-info block-example border border-danger w-100 p-2">
           There are no messages.
@@ -182,14 +186,19 @@ class Dashboard extends Component {
     } else {
       chatUserDisplay = (
         <div>
-          <i>Last Message</i>
+          <i>You have a message from:</i>
+          <br></br>
           <div className="text-dark block-example border border-info w-100 p-2">
-            <small>{firstChatUser.firstName}</small>
+            <small>
+              <li>
+                {firstChatUser.firstName} {firstChatUser.lastName}
+              </li>
+            </small>
           </div>
           <br />
-          <Button className="text-center" onClick={this.myTrips}>
+          <Button size="sm" className="text-center" onClick={this.myChats}>
             {" "}
-            View all messages
+            View other messages
           </Button>
         </div>
       );
@@ -239,8 +248,12 @@ class Dashboard extends Component {
                     <>
                       <style type="text/css">
                         {`
-                      .btn-flat {
-                        background-color: black;
+                      .editProfile {
+                        background-color: #1E90FF ;
+                        color: white;
+                      }
+                      .createTrip {
+                        background-color: ;
                         color: white;
                       }
 
@@ -251,6 +264,7 @@ class Dashboard extends Component {
                       `}
                       </style>
                       <Button
+                        className="editProfile"
                         variant="flat"
                         size="xxl1"
                         onClick={this.editProfile}
@@ -262,6 +276,7 @@ class Dashboard extends Component {
                   <li className="list-group-item text-center">
                     <>
                       <Button
+                        className="createTrip"
                         variant="flat"
                         size="xxl1"
                         onClick={this.createTrip}
@@ -275,7 +290,7 @@ class Dashboard extends Component {
                       <style type="text/css">
                         {`
                       .btn-flat1 {
-                        background-color: red;
+                        background-color: #B22222;
                         color: white;
                       }
 
