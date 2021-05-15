@@ -15,7 +15,7 @@ export default class Welcome extends Component {
 
   render() {
     return (
-      <div>
+      <div className="mt-2">
         <div>
           <Carousel>
             <Carousel.Item>

@@ -45,7 +45,6 @@ export default function App() {
           </Col>
         </Row>
       </Container>
-      <Footer />
     </Router>
   );
 }

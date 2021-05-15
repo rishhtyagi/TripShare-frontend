@@ -5,8 +5,9 @@ class ChangePhoto extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      file: localStorage.getItem("photoPath"),
-      newphoto: "",
+      file:
+        `http://localhost:8085/userphotos/` + localStorage.getItem("photoPath"),
+      data: "",
     };
     localStorage.removeItem("photoPath");
 
@@ -16,16 +17,20 @@ class ChangePhoto extends Component {
   }
 
   handleChange(event) {
+    var fileList = document.getElementById("image").files;
+    var data = new FormData();
+    data.append("image", fileList[0]);
+
     this.setState({
       file: URL.createObjectURL(event.target.files[0]),
-      newphoto: event.target.files[0],
+      data: fileList[0],
     });
-    console.log(this.state.newphoto);
   }
 
   changePhoto() {
-    EditServices.savePhoto(this.state.file).then((res) => {
+    EditServices.savePhoto(this.state.data).then((res) => {
       console.log(res.data);
+      return this.props.history.push("/dashboard");
     });
   }
 
@@ -47,12 +52,17 @@ class ChangePhoto extends Component {
               type="file"
               name="image"
               accept=".jpg"
-              id="file"
+              id="image"
               onChange={this.handleChange}
             />
             <br />
             <br />
-            <img src={this.state.file} className="rounded-circle" width="150" />
+            <img
+              src={this.state.file}
+              className="rounded-circle"
+              width="150"
+              alt="No Preview"
+            />
             <br />
             <br />
             <button

@@ -2,6 +2,7 @@ import { Button, Card } from "react-bootstrap";
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import ChatServices from "../services/ChatServices";
+import "../assets/css/Style.css";
 // import { Card } from "material-ui";
 
 class ChatUI extends Component {
@@ -9,8 +10,10 @@ class ChatUI extends Component {
     super(props);
     this.state = {
       currUserId: this.props.match.params.id,
-      otherUserid: "",
-      otherUserName: "",
+      currChatUser: {
+        id: "",
+        name: "",
+      },
       messageobj: {
         toUserId: "",
         message: "",
@@ -79,24 +82,40 @@ class ChatUI extends Component {
     });
   }
 
+  refreshChat = () => {
+    ChatServices.getChats(this.state.currChatUser.id).then((res) => {
+      this.setState(
+        {
+          chatMessages: res.data,
+        },
+        console.log(res.data[0].fromUser.id)
+      );
+    });
+    console.log("curr user -> " + this.state.currUserId);
+  };
+
   showUserChat = (chatUser) => {
     var name = chatUser.firstName + " " + chatUser.lastName;
     var id = chatUser.id;
-    this.setState({ otherUserName: name }, () => {
-      console.log(this.state.otherUserName);
-      // show name on chat panel
-      document.getElementById("otherUserName").innerHTML = name;
-      // set msgtosend object user id
-      this.setState(
-        {
-          messageobj: {
-            toUserId: id,
-          },
+    // show name on chat panel
+    document.getElementById("otherUserName").innerHTML = name;
+
+    // set msgtosend object user id
+    this.setState(
+      {
+        messageobj: {
+          toUserId: id,
+          message: "",
         },
-        () => {
-          console.log(this.state.messageobj);
-        }
-      );
+        currChatUser: {
+          id: id,
+          name: name,
+        },
+      },
+      () => {
+        console.log(this.state.messageobj);
+        console.log(this.state.currChatUser);
+      },
       // send get
       ChatServices.getChats(chatUser.id)
         .then((res) => {
@@ -110,36 +129,15 @@ class ChatUI extends Component {
         .then(() => {
           console.log(this.state.chatMessages);
           console.log(this.state.chatMessages[0].fromUser.id);
-        });
-      console.log("curr user -> " + this.state.currUserId);
-    });
-    // this.setState({
-    //   chatMessages: [
-    //     {
-    //       fromUser: "3",
-    //       toUser: "4",
-    //       message: "namaste",
-    //       msgTimestamp: "1",
-    //     },
-    //     {
-    //       fromUser: "4",
-    //       toUser: "3",
-    //       message: "namaskar",
-    //       msgTimestamp: "2",
-    //     },
-    //     {
-    //       fromUser: "5",
-    //       toUser: "3",
-    //       message: "pranam",
-    //       msgTimestamp: "2",
-    //     },
-    //   ],
-    // });
+        })
+    );
+    console.log("curr user -> " + this.state.currUserId);
   };
 
   handleChange = (value) => {
     this.setState(() => ({
       messageobj: {
+        toUserId: this.state.messageobj.toUserId,
         message: value,
       },
     }));
@@ -159,10 +157,10 @@ class ChatUI extends Component {
       message: this.state.messageobj.message,
     };
     console.log(this.state.messageobj);
-    console.log(messageobj);
-    ChatServices.sendMessage(messageobj).then((res) => {
+    ChatServices.sendMessage(this.state.messageobj).then((res) => {
       console.log(res);
-      this.handleClose();
+      document.getElementById("chatBox").value = "";
+      this.refreshChat();
     });
   };
 
@@ -211,7 +209,7 @@ class ChatUI extends Component {
                 </div>
               </div>
 
-              <div className="col-md-7">
+              <div className="chat col-md-7">
                 <div className="card mb-6">
                   <div className="card-body" id="chatsdisplay">
                     <div className="row">
@@ -228,8 +226,6 @@ class ChatUI extends Component {
                     </div>
                     {chatMessages.map((chatMessage) => (
                       <div key={chatMessage.msgTimestamp}>
-                        {console.log("fromUserId" + chatMessage.fromUser.id)}
-                        {console.log("currUser" + this.state.currUserId)}
                         {this.state.currUserId == chatMessage.fromUser.id ? (
                           <div className="row">
                             {" "}
@@ -265,7 +261,7 @@ class ChatUI extends Component {
                         <TextField
                           autoFocus
                           margin="dense"
-                          id="outlined-multiline-static"
+                          id="chatBox"
                           placeholder="Message "
                           label="Write a message here"
                           multiline

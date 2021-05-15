@@ -147,7 +147,7 @@ class UserTableRow extends React.Component {
                     <div>
                       <Button
                         variant="outlined"
-                        color="primary"
+                        color="secondary"
                         onClick={this.handleClickOpen}
                       >
                         Have a conversation{" "}

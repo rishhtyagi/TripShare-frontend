@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import logosm from "../images/logosm.png";
+import "../assets/css/Style.css";
 import {
   faUserPlus,
   faSignInAlt,
@@ -19,12 +21,10 @@ class NavigationBar extends Component {
     const guestLinks = (
       <>
         <div className="mr-auto"></div>
-        <Nav className="mr-auto">
+        <Nav className="navbar-right">
           <Link to={"aboutUs"} className="nav-link">
             About Us
           </Link>
-        </Nav>
-        <Nav className="navbar-right">
           <Link to={"register"} className="nav-link">
             <FontAwesomeIcon icon={faUserPlus} /> Register
           </Link>
@@ -37,14 +37,17 @@ class NavigationBar extends Component {
     const userLinks = (
       <>
         <Nav className="mr-auto">
-          <Link to={"dashboard"} className="nav-link">
+          <Link to={"../dashboard"} className="nav-link">
             My Profile
           </Link>
-          <Link to={"createtrip"} className="nav-link">
+          <Link to={"../createtrip"} className="nav-link">
             Create Trip
           </Link>
-          <Link to={"myTrips"} className="nav-link">
+          <Link to={"../myTrips"} className="nav-link">
             Trip List
+          </Link>
+          <Link to={"../aboutUs"} className="nav-link">
+            About Us
           </Link>
         </Nav>
         <Nav className="navbar-right">
@@ -56,15 +59,11 @@ class NavigationBar extends Component {
     );
 
     return (
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark" sticky="top" className="py-2">
         <Link to={""} className="navbar-brand">
-          <img
-            src="https://www.vhv.rs/dpng/d/450-4505042_trekking-png-hd-mountain-hiking-clip-art-transparent.png"
-            width="25"
-            height="25"
-            alt="brand"
-          />{" "}
-          TRIP SHARE
+          <h3>
+            <img src={logosm} width="40" height="40" alt="brand" /> TRIP SHARE
+          </h3>
         </Link>
         {this.props.auth.isLoggedIn ? userLinks : guestLinks}
       </Navbar>

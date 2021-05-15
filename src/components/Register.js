@@ -70,16 +70,18 @@ class Register extends Component {
     const { firstName, email, password, lastName } = this.state;
 
     return (
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-md-center mt-2">
         <Col xs={5}>
           <Card className={"border border-dark bg-dark text-white"}>
-            <Card.Header>
-              <FontAwesomeIcon icon={faUserPlus} /> Register
+            <Card.Header className="mb-3 mt-3">
+              <h2>
+                <FontAwesomeIcon icon={faUserPlus} /> Register
+              </h2>
             </Card.Header>
-            <Card.Body>
+            <Card.Body className=" mb-3 mt-3">
               <Form.Row>
                 <Form.Group as={Col}>
-                  <InputGroup>
+                  <InputGroup className="mb-3 ">
                     <InputGroup.Prepend>
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faUser} />
@@ -88,10 +90,11 @@ class Register extends Component {
                     <FormControl
                       autoComplete="off"
                       type="text"
+                      size="md"
                       name="firstName"
                       value={firstName}
                       onChange={this.userChange}
-                      className={"bg-dark text-white"}
+                      className={"bg-white text-dark"}
                       placeholder="Enter First Name"
                     />
                   </InputGroup>
@@ -99,7 +102,7 @@ class Register extends Component {
               </Form.Row>
               <Form.Row>
                 <Form.Group as={Col}>
-                  <InputGroup>
+                  <InputGroup className="mb-3 ">
                     <InputGroup.Prepend>
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faUser} />
@@ -109,9 +112,10 @@ class Register extends Component {
                       autoComplete="off"
                       type="text"
                       name="lastName"
+                      size="md"
                       value={lastName}
                       onChange={this.userChange}
-                      className={"bg-dark text-white"}
+                      className={"bg-white text-dark"}
                       placeholder="Enter Last Name"
                     />
                   </InputGroup>
@@ -119,7 +123,7 @@ class Register extends Component {
               </Form.Row>
               <Form.Row>
                 <Form.Group as={Col}>
-                  <InputGroup>
+                  <InputGroup className="mb-3 ">
                     <InputGroup.Prepend>
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faEnvelope} />
@@ -131,8 +135,9 @@ class Register extends Component {
                       type="email"
                       name="email"
                       value={email}
+                      size="md"
                       onChange={this.userChange}
-                      className={"bg-dark text-white"}
+                      className={"bg-white text-dark"}
                       placeholder="Enter Email Address"
                     />
                   </InputGroup>
@@ -151,9 +156,10 @@ class Register extends Component {
                       autoComplete="off"
                       type="password"
                       name="password"
+                      size="md"
                       value={password}
                       onChange={this.userChange}
-                      className={"bg-dark text-white"}
+                      className={"bg-white text-dark"}
                       placeholder="Enter Password"
                     />
                   </InputGroup>
@@ -162,7 +168,7 @@ class Register extends Component {
             </Card.Body>
             <Card.Footer style={{ textAlign: "right" }}>
               <Button
-                size="sm"
+                size="md"
                 type="button"
                 variant="success"
                 onClick={this.submitUser}
@@ -174,7 +180,7 @@ class Register extends Component {
                 <FontAwesomeIcon icon={faUserPlus} /> Register
               </Button>{" "}
               <Button
-                size="sm"
+                size="md"
                 type="button"
                 variant="info"
                 onClick={this.resetRegisterForm}

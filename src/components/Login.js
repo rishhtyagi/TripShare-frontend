@@ -64,17 +64,19 @@ class Login extends Component {
     const { email, password, error } = this.state;
 
     return (
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-md-center mt-2">
         <Col xs={5}>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Card className={"border border-dark bg-dark text-white"}>
-            <Card.Header>
-              <FontAwesomeIcon icon={faSignInAlt} /> Login
+          <Card className={"transparent border-dark bg-dark text-white"}>
+            <Card.Header className="mb-3 mt-3">
+              <h2>
+                <FontAwesomeIcon icon={faSignInAlt} /> Login
+              </h2>
             </Card.Header>
-            <Card.Body>
+            <Card.Body className=" mb-3 mt-3">
               <Form.Row>
                 <Form.Group as={Col}>
-                  <InputGroup>
+                  <InputGroup className="mb-3 ">
                     <InputGroup.Prepend>
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faEnvelope} />
@@ -85,9 +87,10 @@ class Login extends Component {
                       autoComplete="off"
                       type="text"
                       name="email"
+                      size="md"
                       value={email}
                       onChange={this.credentialChange}
-                      className={"bg-dark text-white"}
+                      className={"bg-white text-dark"}
                       placeholder="Enter Email Address"
                     />
                   </InputGroup>
@@ -106,9 +109,10 @@ class Login extends Component {
                       autoComplete="off"
                       type="password"
                       name="password"
+                      size="md"
                       value={password}
                       onChange={this.credentialChange}
-                      className={"bg-dark text-white"}
+                      className={"bg-white text-dark"}
                       placeholder="Enter Password"
                     />
                   </InputGroup>
@@ -117,7 +121,8 @@ class Login extends Component {
             </Card.Body>
             <Card.Footer style={{ textAlign: "right" }}>
               <Button
-                size="sm"
+                className="mb-1 mt-1"
+                size="md"
                 type="button"
                 variant="success"
                 onClick={this.validateUser}
@@ -129,7 +134,7 @@ class Login extends Component {
                 <FontAwesomeIcon icon={faSignInAlt} /> Login
               </Button>{" "}
               <Button
-                size="sm"
+                size="md"
                 type="button"
                 variant="info"
                 onClick={this.resetLoginForm}

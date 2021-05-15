@@ -3,3 +3,12 @@
   font-size: 40px;
   font-weight: 200;
 }
+.panel {
+  background-color: transparent;
+}
+.card {
+  opacity: 0.9;
+}
+.about-card {
+  opacity: 0.9;
+}

@@ -12,12 +12,18 @@ class EditServices {
   }
 
   savePhoto(newphoto) {
-    return axios.post("http://localhost:8085/user/savephoto", newphoto, {
+    var data = new FormData();
+    data.append("image", newphoto);
+    var config = {
+      method: "post",
+      url: "http://localhost:8085/user/savephoto",
       headers: {
         Authorization: localStorage.jwtToken,
-        "Content-Type": "application/json",
       },
-    });
+      data: data,
+    };
+
+    return axios(config);
   }
 }
 

@@ -3,6 +3,11 @@ main {
   max-width: 960px;
 }
 
+.chat {
+  max-height: 700px;
+  overflow-y: scroll;
+}
+
 .table-container {
   margin: 10px;
   padding: 0;
@@ -60,17 +65,41 @@ tr.expandable > td > .inner {
   border-top: 10px solid white;
 }
 
-body {
+/* body {
   margin-top: 20px;
   color: #1a202c;
   text-align: left;
   background-color: #e2e8f0;
 }
+body {
+  margin: 0;
+  padding-top: 40px;
+  color: #2e323c;
+  background: #f5f6fa;
+  position: relative;
+  height: 100%;
+}
 .main-body {
   padding: 15px;
+} */
+
+.nav-link {
+  font-size: larger;
 }
 .card {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.about-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #272b30;
+  background-clip: border-box;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
 }
 
 .card {
@@ -116,14 +145,6 @@ body {
   box-shadow: none !important;
 }
 
-body {
-  margin: 0;
-  padding-top: 40px;
-  color: #2e323c;
-  background: #f5f6fa;
-  position: relative;
-  height: 100%;
-}
 .account-settings .user-profile {
   margin: 0 0 1rem 0;
   padding-bottom: 1rem;

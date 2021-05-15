@@ -69,8 +69,10 @@ class CreateTrip extends Component {
           <Row className="justify-content-md-center">
             <Col xs={7}>
               <Card className={"border border-dark bg-dark text-white"}>
-                <Card.Header>
-                  <FontAwesomeIcon icon={faUserPlus} /> Create a trip
+                <Card.Header className="mb-2 mt-2">
+                  <h2>
+                    <FontAwesomeIcon icon={faUserPlus} /> Trip Preferences
+                  </h2>
                 </Card.Header>
                 <Card.Body>
                   <Form.Group controlId="formGridDestination">

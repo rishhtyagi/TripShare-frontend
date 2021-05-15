@@ -22,7 +22,7 @@ class NewMatch extends Component {
       this.setState({
         trips: res.data,
       });
-      console.log(this.state.trips[0].trip.tripId);
+      // console.log(this.state.trips[0].trip.tripId);
     });
     localStorage.removeItem("tripId");
   }

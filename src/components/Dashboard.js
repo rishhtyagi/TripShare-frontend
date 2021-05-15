@@ -64,7 +64,7 @@ class Dashboard extends Component {
           this.setState({ gender: "Male" });
         } else if (user.gender === 0) {
           this.setState({ gender: "Other" });
-        } else {
+        } else if (user.gender == 2) {
           this.setState({ gender: "Female" });
         }
       });
@@ -205,7 +205,7 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className="container">
+      <div className="container mt-5">
         <div className="main-body">
           <div className="row gutters-sm">
             <div className="col-md-4 mb-3">
@@ -214,15 +214,15 @@ class Dashboard extends Component {
                   <div className="d-flex flex-column align-items-center text-center">
                     {isPhoto ? (
                       <img
-                        src="https://i2-prod.manchestereveningnews.co.uk/sport/football/football-news/article18186890.ece/ALTERNATES/s1200c/2_GettyImages-1184489344.jpg"
+                        src="https://bootdey.com/img/Content/avatar/avatar7.png"
                         alt="Admin"
                         className="rounded-circle"
                         width="150"
                       ></img>
                     ) : (
                       <img
-                        src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                        alt="No photo to preview"
+                        src={`http://localhost:8085/userphotos/` + photoPath}
+                        alt="No preview"
                         className="rounded-circle"
                         width="150"
                       ></img>
@@ -253,7 +253,7 @@ class Dashboard extends Component {
                         color: white;
                       }
                       .createTrip {
-                        background-color: ;
+                        background-color: grey;
                         color: white;
                       }
 
