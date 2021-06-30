@@ -60,7 +60,7 @@ class UserTableRow extends React.Component {
 
   sendMsg = (e) => {
     e.preventDefault();
-    if (this.state.messageobj.message == "") {
+    if (this.state.messageobj.message === "") {
       return;
     }
     let messageobj = {
@@ -78,10 +78,19 @@ class UserTableRow extends React.Component {
   render() {
     const { trip } = this.props;
     const { open } = this.state;
+    let gen;
 
+    if (trip.user.gender === 1) {
+      gen = "Male";
+    } else if (trip.user.gender === 2) {
+      gen = "Female";
+    } else if (trip.user.gender === 0) {
+      gen = "Other";
+    } else {
+      gen = "Not Defined";
+    }
     return [
       <tr key="main" onClick={this.toggleExpander}>
-        {/* <td className="uk-text-nowrap text-white">{this.props.index}.</td> */}
         {/* <td>
           <img
             className="uk-preserve-width uk-border-circle text-white"
@@ -93,7 +102,6 @@ class UserTableRow extends React.Component {
         <td>
           {trip.destination}
           <br />
-          <small>{trip.landscape}</small>
         </td>
         <td>{trip.tripDate}</td>
         <td>
@@ -141,8 +149,8 @@ class UserTableRow extends React.Component {
                         {trip.user.firstName} {trip.user.lastName}
                       </i>
                       <br />
-                      Host Age: <i>{trip.user.age}</i> <br />
-                      Host gender:<i> {trip.user.gender}</i>
+                      Host Date of Birth: <i>{trip.user.dob}</i> <br />
+                      Host gender:<i> {gen}</i>
                     </p>
                     <div>
                       <Button
@@ -179,18 +187,6 @@ class UserTableRow extends React.Component {
                             }
                             name="message"
                           />
-
-                          {/* <Form.Group controlId="formGridDescription">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control
-                      type="textarea"
-                      rows="9"
-                      placeholder="Your expectations here..."
-                      name="description"
-                      value={description}
-                      onChange={this.userChange}
-                    />
-                  </Form.Group> */}
                         </DialogContent>
                         <DialogActions>
                           <Button onClick={this.handleClose} color="primary">

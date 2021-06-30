@@ -64,11 +64,10 @@ class Dashboard extends Component {
           this.setState({ gender: "Male" });
         } else if (user.gender === 0) {
           this.setState({ gender: "Other" });
-        } else if (user.gender == 2) {
+        } else if (user.gender === 2) {
           this.setState({ gender: "Female" });
         }
       });
-    // return this.props.history.push("/dashboard");
   };
 
   findTripsByUser = () => {
@@ -114,11 +113,11 @@ class Dashboard extends Component {
   deleteProfile() {
     return this.props.history.push("/deleteProfile");
   }
-  myChats() {
-    return this.props.history.push("/chatUi/" + this.state.id);
-  }
   myTrips() {
     return this.props.history.push("/myTrips");
+  }
+  myChats() {
+    return this.props.history.push("/chatUi/" + this.state.id);
   }
   changePhoto() {
     localStorage.setItem("photoPath", this.state.photoPath);
@@ -134,9 +133,8 @@ class Dashboard extends Component {
       dob,
       photoPath,
       trip,
-      test,
       firstChatUser,
-      nchatUsers,
+      test,
     } = this.state;
 
     const isPhoto = photoPath === null;
@@ -168,9 +166,9 @@ class Dashboard extends Component {
           </div>
           <small>To see all the information click on button below...</small>
           <br />
-          <Button size="sm" className="text-center" onClick={this.myTrips}>
+          <Button className="text-center" onClick={this.myTrips}>
             {" "}
-            View all
+            view all
           </Button>
         </div>
       );
@@ -215,7 +213,7 @@ class Dashboard extends Component {
                     {isPhoto ? (
                       <img
                         src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                        alt="Admin"
+                        alt="No path"
                         className="rounded-circle"
                         width="150"
                       ></img>
@@ -256,7 +254,6 @@ class Dashboard extends Component {
                         background-color: grey;
                         color: white;
                       }
-
                       .btn-xxl {
                         left: 1rem;
                         font-size: 1rem;
@@ -281,7 +278,7 @@ class Dashboard extends Component {
                         size="xxl1"
                         onClick={this.createTrip}
                       >
-                        Create Trip
+                        Trip Preferences
                       </Button>
                     </>
                   </li>
@@ -293,7 +290,6 @@ class Dashboard extends Component {
                         background-color: #B22222;
                         color: white;
                       }
-
                       .btn-xxl1 {
                         left: 1rem;
                         font-size: 1rem;

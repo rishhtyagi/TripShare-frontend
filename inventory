@@ -1,0 +1,6 @@
+[hosts_set1]
+user1@127.0.0.1
+
+[hosts_set1:vars]
+ansible_python_interpreter=/usr/bin/python3
+

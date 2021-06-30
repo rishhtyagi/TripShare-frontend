@@ -1,0 +1,35 @@
+---
+- name: Pull and run tripshare docker containers
+  hosts: all
+  tasks:
+   - name: Create network
+     docker_network:
+       name: backend
+   - name: Pull tripshare_backend
+     docker_image:
+       name: nayan16/tripshare_backend
+       source: pull
+   - name: Pull tripshare_frontend
+     docker_image:
+       name: nayan16/tripshare_frontend
+       source: pull
+   - name: Run backend container
+     docker_container:
+       name: tripshare_backend
+       image: nayan16/tripshare_backend
+       state: started
+       tty: true
+       networks:
+         - name: backend
+       ports:
+         - '8085:8085'
+   - name: Run frontend container
+     docker_container:
+       name: tripshare_frontend
+       image: nayan16/tripshare_frontend
+       state: started
+       tty: true
+       networks:
+         - name: backend
+       ports:
+         - '3000:3000'

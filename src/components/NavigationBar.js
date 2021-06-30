@@ -41,7 +41,7 @@ class NavigationBar extends Component {
             My Profile
           </Link>
           <Link to={"../createtrip"} className="nav-link">
-            Create Trip
+            Trip Preferences
           </Link>
           <Link to={"../myTrips"} className="nav-link">
             Trip List
@@ -65,6 +65,7 @@ class NavigationBar extends Component {
             <img src={logosm} width="40" height="40" alt="brand" /> TRIP SHARE
           </h3>
         </Link>
+
         {this.props.auth.isLoggedIn ? userLinks : guestLinks}
       </Navbar>
     );

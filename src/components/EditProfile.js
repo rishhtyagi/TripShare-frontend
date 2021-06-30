@@ -86,19 +86,13 @@ class EditProfile extends Component {
         description: updateUser.description,
         password: updateUser.password,
       });
+      return this.props.history.push("/dashboard");
     });
   }
 
   render() {
-    const {
-      firstName,
-      email,
-      lastName,
-      description,
-      dob,
-      gender,
-      password,
-    } = this.state;
+    const { firstName, email, lastName, description, dob, gender, password } =
+      this.state;
 
     return (
       <div>
@@ -221,6 +215,7 @@ class EditProfile extends Component {
                     <div className="form-group">
                       <label>Address</label>
                       <input
+                        autoComplete="off"
                         type="text"
                         className="form-control"
                         name="address"

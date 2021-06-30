@@ -10,6 +10,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "d3": "^6.7.0",
+    "form-data": "^2.3.3",
     "react": "^16.14.0",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.14.0",

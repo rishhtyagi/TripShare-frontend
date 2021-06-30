@@ -8,7 +8,6 @@ import NavigationBar from "./components/NavigationBar";
 import Welcome from "./components/Welcome";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import Footer from "./components/Footer";
 import Dashboard from "./components/Dashboard";
 import EditProfile from "./components/EditProfile";
 import CreateTrip from "./components/CreateTrip";

@@ -23,7 +23,6 @@ class CreateTrip extends Component {
     localStorage.removeItem("newtripId");
   }
   userChange = (event) => {
-    console.log(event.target.name + " => " + event.target.value);
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -54,13 +53,10 @@ class CreateTrip extends Component {
   render() {
     const {
       destination,
-      landscape,
       tripDate,
       tripLength,
       tripBudget,
       groupSize,
-      expectedAgeGroup,
-      expectedGender,
       description,
     } = this.state;
     return (
@@ -78,6 +74,7 @@ class CreateTrip extends Component {
                   <Form.Group controlId="formGridDestination">
                     <Form.Label>Destination</Form.Label>
                     <Form.Control
+                      autoComplete="off"
                       type="text"
                       placeholder="Enter Destination"
                       name="destination"
@@ -117,6 +114,7 @@ class CreateTrip extends Component {
                   <Form.Group controlId="formGridTripLength">
                     <Form.Label>Trip Length</Form.Label>
                     <Form.Control
+                      autoComplete="off"
                       placeholder="Enter no. of days"
                       name="tripLength"
                       value={tripLength}
@@ -128,6 +126,7 @@ class CreateTrip extends Component {
                     <Form.Group as={Col} controlId="formGridBudget">
                       <Form.Label>Trip Budget</Form.Label>
                       <Form.Control
+                        autoComplete="off"
                         placeholder="Enter your budget"
                         name="tripBudget"
                         value={tripBudget}
@@ -136,8 +135,9 @@ class CreateTrip extends Component {
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridGroup">
-                      <Form.Label>Group Size</Form.Label>
+                      <Form.Label>Group Size(approx)</Form.Label>
                       <Form.Control
+                        autoComplete="off"
                         placeholder="Your group size"
                         name="groupSize"
                         value={groupSize}
@@ -201,6 +201,7 @@ class CreateTrip extends Component {
                   <Form.Group controlId="formGridDescription">
                     <Form.Label>Description</Form.Label>
                     <Form.Control
+                      autoComplete="off"
                       type="textarea"
                       rows="9"
                       placeholder="Your expectations here..."
