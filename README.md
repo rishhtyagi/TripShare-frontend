@@ -1,3 +1,3 @@
 # TripShare
 
-[Link To TripShare-Backend](https://github.com/facebook/create-react-app)
+[Link To TripShare-Backend](https://github.com/rishhtyagi/TripShare-backend)
